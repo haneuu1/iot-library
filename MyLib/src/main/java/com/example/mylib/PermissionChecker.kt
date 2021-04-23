@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-class PermissionChecker(
-    val activity: AppCompatActivity,
-    val permissions: Array<out String>,
-    val requestCode: Int = 1000) {
+class PermissionChecker(val activity: AppCompatActivity, val permissions: Array<String>, val requestCode: Int = 1000) {
 
     fun check(): Boolean {
         val notGranted = permissions.filter {
             ContextCompat.checkSelfPermission(activity, it) != PackageManager.PERMISSION_GRANTED
         }
-        if (notGranted.isEmpty()) { // 모든 권한 획득
+        if (notGranted.isEmpty()) { // 필요한 모든 권한 획득
             return true
         }
 
@@ -23,11 +20,7 @@ class PermissionChecker(
         return false
     }
 
-    fun checkGranted(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray): Boolean {
-
+    fun checkGranted(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) : Boolean {
         if (requestCode == this.requestCode) {
             val notGranted = permissions.filterIndexed { index, s ->
                 grantResults[index] != PackageManager.PERMISSION_GRANTED
@@ -36,6 +29,7 @@ class PermissionChecker(
                 return true
             }
         }
+
         return false
     }
 }

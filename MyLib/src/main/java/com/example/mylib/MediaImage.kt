@@ -3,6 +3,7 @@ package com.example.mylib
 import android.provider.MediaStore
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import java.util.ArrayList
 
 class MediaImage(val ctx: AppCompatActivity) {
 
@@ -15,6 +16,7 @@ class MediaImage(val ctx: AppCompatActivity) {
             null,
             MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC"
         )
+
         val imageUris = ArrayList<String>()
 
         cursor?.use {
@@ -24,8 +26,9 @@ class MediaImage(val ctx: AppCompatActivity) {
                 Log.d("MainActivity", uri)
                 imageUris.add(uri)
             }
-        }// cursor.close()
+        }
 
         return imageUris
     }
 }
+

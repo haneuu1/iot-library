@@ -25,64 +25,66 @@ interface PiApiService {
     ): Call<ControlResult>
 }
 
-object PiApi: OpenApi() {
+object PiApi : OpenApi() {
     override val TAG = javaClass.simpleName
-    override val BASE_URL = "http://192.168.35.71:8000"
+    override val BASE_URL = "http://192.168.35.41:8000"
 
     private val service = retrofit.create(PiApiService::class.java)
 
     fun controlLed(target: String, value: String, callback: (ControlResult)->Unit) {
-        service.controlLed(target, value)
-                .enqueue(ApiCallback<ControlResult>(callback))
+        service.controlLed(target, value).enqueue(ApiCallback<ControlResult>(callback))
     }
 
-    fun controlServo(target: String, value: Int, callback: (ControlResult) -> Unit) {
-        service.controlServo(target, value)
-                .enqueue(ApiCallback<ControlResult>(callback))
+    fun controlServo(target: String, value: Int, callback: (ControlResult)->Unit) {
+        service.controlServo(target, value).enqueue(ApiCallback<ControlResult>(callback))
     }
-}
 
-//object PiApi {
-//    val TAG = javaClass.simpleName
-//    private  val retrofit = Retrofit.Builder()
-//            .baseUrl("http://192.168.35.71:8000")
-//            .addConverterFactory(GsonConverterFactory.create())
-//            .build()
-//
-//    fun getService() = retrofit.create(PiApiService::class.java)
-//
 //    fun controlLed(target: String, value: String, callback: (ControlResult)->Unit) {
 //        getService()
 //                .controlLed(target, value)
 //                .enqueue(object: Callback<ControlResult> {
+//
+//                    // 응답 실패 시
 //                    override fun onFailure(call: Call<ControlResult>, t: Throwable) {
 //                        Log.e(TAG, t.toString())
 //                    }
 //
-//                    override fun onResponse(call: Call<ControlResult>, response: Response<ControlResult>) {
-//                        if (response.isSuccessful) {
-//                            val result = response.body()
-//                            callback(result!!)
+//                    // 응답 성공 시
+//                    override fun onResponse(
+//                            call: Call<ControlResult>,
+//                            response: Response<ControlResult>
+//                    ) {
+//                        if (response.isSuccessful) { // code: 200 체크
+//                            val result = response.body() // body() 의 리턴 타입 ImageSearchResult?
+//                            callback(result!!) // isSuccessful 로 검사했으므로 null 이 없음을 보장함
 //                        } else {
 //                            Log.w(TAG, "${response.code()}, ${response.message()}")
 //                            Log.w(TAG, "${response.toString()}")
 //                        }
 //                    }
-//                })
-//    }
 //
-//    fun controlServo(target: String, value:Int, callback: (ControlResult) -> Unit) {
+//                })
+//
+//    }
+
+//    fun controlServo(target: String, value: Int, callback: (ControlResult)->Unit) {
 //        getService()
 //                .controlServo(target, value)
-//                .enqueue(object: Callback<ControlResult>{
+//                .enqueue(object: Callback<ControlResult> {
+//
+//                    // 응답 실패 시
 //                    override fun onFailure(call: Call<ControlResult>, t: Throwable) {
 //                        Log.e(TAG, t.toString())
 //                    }
 //
-//                    override fun onResponse(call: Call<ControlResult>, response: Response<ControlResult>) {
-//                        if (response.isSuccessful) {
-//                            val result = response.body()
-//                            callback(result!!)
+//                    // 응답 성공 시
+//                    override fun onResponse(
+//                            call: Call<ControlResult>,
+//                            response: Response<ControlResult>
+//                    ) {
+//                        if (response.isSuccessful) { // code: 200 체크
+//                            val result = response.body() // body() 의 리턴 타입 ImageSearchResult?
+//                            callback(result!!) // isSuccessful 로 검사했으므로 null 이 없음을 보장함
 //                        } else {
 //                            Log.w(TAG, "${response.code()}, ${response.message()}")
 //                            Log.w(TAG, "${response.toString()}")
@@ -90,5 +92,6 @@ object PiApi: OpenApi() {
 //                    }
 //
 //                })
+//
 //    }
-//}
+}
