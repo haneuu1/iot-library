@@ -6,5 +6,6 @@ import java.util.*
 data class RecordingDataItem(
     val id: Int,
     val video_root: String,
-    val video_timestamp: Date
+    val video_timestamp: Date,
+    val video_length: String
 ) : Serializable

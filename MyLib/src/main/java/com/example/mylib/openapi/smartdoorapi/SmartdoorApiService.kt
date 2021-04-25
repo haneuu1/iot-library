@@ -22,7 +22,7 @@ interface SmartdoorApiService {
 
 object SmartdoorApi : OpenApi() {
     override val TAG = javaClass.simpleName
-    override val BASE_URL = "http://172.30.1.44:8000" // 라즈베리파이
+    override val BASE_URL = "http://192.168.35.225:8000" // 라즈베리파이
 
     private val service = retrofit.create(SmartdoorApiService::class.java)
 
